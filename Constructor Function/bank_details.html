@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>CreateBankAccount</h1>
+</body>
+</html>
+<script>
+    function CreateBankAccount(accountNumber, name, type, balance){
+        this.accountNumber = accountNumber;
+        this.name = name;
+        this.type = type;
+        this.balance = balance;
+
+        this.deposite = function(amount){
+            this.balance += amount;
+        }
+
+        this.withDraw = function(amount){
+            if(amount <= this.balance){
+                this.balance -= amount
+
+            }
+            else{
+                console.log("Insufficiient balance")
+            }
+            
+        }
+        this.TotalBalance = function(){
+            console.log("Total Balance",this.balance);
+        }
+
+    };
+
+    let ac1 = new CreateBankAccount(7584657, "aman", "saving", 1000)
+
+    let ac2 = new CreateBankAccount(675644, "riya", "saving", 500)
+
+    let ac3 = new CreateBankAccount(202983, "rahul", "saving", 800)
+
+    ac1.deposite(500)
+    ac1.withDraw(300)
+
+    ac2.deposite(600)
+    ac2.withDraw(200)
+
+    ac3.deposite(800)
+    ac3.withDraw(250)
+
+    let accounts = [ac1,ac2,ac3]
+
+    function getTotalBalance(accounts){
+        let total=0
+        for(let i=0; i<accounts.length; i++){
+            total += accounts[i].balance
+
+        }
+        console.log("All Account Balance - ",total);
+    }
+
+    getTotalBalance(accounts)
+
+</script>

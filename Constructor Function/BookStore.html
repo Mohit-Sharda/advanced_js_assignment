@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Book Story</h1>
+</body>
+</html>
+<script>
+    function CreateAuthor(name,birthYear,nationality){
+        this.name = name;
+        this.birthYear = birthYear;
+        this.nationality = nationality;
+    }
+
+    function CreateBook(title,author,genre,price){
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.price = price;
+    }
+
+    let author1 = new CreateAuthor("Rahul", 1998 , "Indian");
+    let author2 = new CreateAuthor("John", 1998 , "Australia");
+    let author3 = new CreateAuthor("Jey", 1998 , "American");
+
+    let book1 = new CreateBook("Socal Media",author1,"Public", 1200)
+
+    let book2 = new CreateBook("The Miz",author2,"Action", 2800)
+
+    let book3 = new CreateBook("Harry Potter",author3,"Entertenment", 3400)
+
+    let AllBook = [book1,book2,book3]
+
+    console.log(AllBook);
+
+
+
+</script>
