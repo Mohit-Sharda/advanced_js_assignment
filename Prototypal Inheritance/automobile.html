@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // Using Object.create()
+
+const automobilePrototype = {
+  start: function() {
+    console.log("Automobile is starting...");
+  },
+  stop: function() {
+    console.log("Automobile is stopping...");
+  }
+};
+
+
+const fourWheeler = Object.create(automobilePrototype);
+
+
+fourWheeler.numWheels = 4;
+fourWheeler.drive = function() {
+  console.log("FourWheeler is driving...");
+};
+
+
+
+
+function Automobile() {}
+
+
+Automobile.prototype.start = function() {
+  console.log("Automobile is starting...");
+};
+
+Automobile.prototype.stop = function() {
+  console.log("Automobile is stopping...");
+};
+
+
+function FourWheeler() {
+  
+  Automobile.call(this);
+
+  
+  this.numWheels = 4;
+}
+
+
+FourWheeler.prototype = Object.create(Automobile.prototype);
+
+
+FourWheeler.prototype.drive = function() {
+  console.log("FourWheeler is driving...");
+};
+
+
+
+// Using Object.create()
+console.log("Using Object.create():");
+fourWheeler.start();
+fourWheeler.drive();
+fourWheeler.stop();
+
+// Using Constructor Functions
+console.log("\nUsing Constructor Functions:");
+const myFourWheeler = new FourWheeler();
+myFourWheeler.start();
+myFourWheeler.drive();
+myFourWheeler.stop();
+
+</script>
