@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        #timer {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        #inputs {
+            margin-bottom: 20px;
+        }
+        #buttons {
+            display: flex;
+            justify-content: center;
+        }
+        button {
+            font-size: 1em;
+            margin: 0 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="inputs">
+    <label for="hours">Hours: </label>
+    <input type="number" id="hours" min="0" value="0">
+    <label for="minutes">Minutes: </label>
+    <input type="number" id="minutes" min="0" value="0">
+    <label for="seconds">Seconds: </label>
+    <input type="number" id="seconds" min="0" value="0">
+</div>
+
+<div id="timer">00:00:00</div>
+<div id="buttons">
+    <button onclick="start()">Start</button>
+    <button onclick="pause()">Pause</button>
+    <button onclick="reset()">Reset</button>
+</div>
+
+<script>
+    let timer;
+    let totalSeconds = 0;
+
+    function start() {
+        if (!timer) {
+            const hours = parseInt(document.getElementById('hours').value) || 0;
+            const minutes = parseInt(document.getElementById('minutes').value) || 0;
+            const seconds = parseInt(document.getElementById('seconds').value) || 0;
+
+            totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+            if (totalSeconds > 0) {
+                timer = setInterval(updateTimer, 1000);
+            }
+        }
+    }
+
+    function pause() {
+        clearInterval(timer);
+        timer = null;
+    }
+
+    function reset() {
+        clearInterval(timer);
+        timer = null;
+        totalSeconds = 0;
+        updateDisplay();
+    }
+
+    function updateTimer() {
+        if (totalSeconds > 0) {
+            totalSeconds--;
+            updateDisplay();
+        } else {
+            clearInterval(timer);
+            timer = null;
+        }
+    }
+
+    function updateDisplay() {
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+        const formattedTime = `${formatTime(hours)}:${formatTime(minutes)}:${formatTime(seconds)}`;
+        document.getElementById('timer').textContent = formattedTime;
+    }
+
+    function formatTime(time) {
+        return time < 10 ? `0${time}` : time;
+    }
+</script>
+
+</body>
+</html>

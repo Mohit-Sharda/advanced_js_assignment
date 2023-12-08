@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        #timer {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        #buttons {
+            display: flex;
+            justify-content: center;
+        }
+        button {
+            font-size: 1em;
+            margin: 0 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="timer">00:00</div>
+<div id="buttons">
+    <button onclick="start()">Start</button>
+    <button onclick="pause()">Pause</button>
+    <button onclick="reset()">Reset</button>
+</div>
+
+<script>
+    let timer;
+    let seconds = 0, minutes = 0;
+
+    function start() {
+        if (!timer) {
+            timer = setInterval(updateTimer, 1000);
+        }
+    }
+
+    function pause() {
+        clearInterval(timer);
+        timer = null;
+    }
+
+    function reset() {
+        clearInterval(timer);
+        timer = null;
+        seconds = 0;
+        minutes = 0;
+        updateDisplay();
+    }
+
+    function updateTimer() {
+        seconds++;
+        if (seconds === 60) {
+            seconds = 0;
+            minutes++;
+        }
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        const formattedTime = `${formatTime(minutes)}:${formatTime(seconds)}`;
+        document.getElementById('timer').textContent = formattedTime;
+    }
+
+    function formatTime(time) {
+        return time < 10 ? `0${time}` : time;
+    }
+</script>
+
+</body>
+</html>
