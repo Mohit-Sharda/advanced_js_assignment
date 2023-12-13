@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+
+    #processing, #success, #failure {
+      display: none;
+      margin-top: 20px;
+    }
+
+    #orderId, #failureReason {
+      font-size: 18px;
+      color: green;
+    }
+  </style>
+  <title>Virtual PhonePe</title>
+</head>
+<body>
+
+  <button onclick="makePayment()">Make Payment</button>
+
+  <div id="processing">
+    <p>Processing...</p>
+  </div>
+
+  <div id="success">
+    <p>Payment Successful!</p>
+    <div id="orderId"></div>
+  </div>
+
+  <div id="failure">
+    <p>Payment Failed</p>
+    <div id="failureReason"></div>
+  </div>
+
+  <script>
+    function makePayment() {
+      const processingDiv = document.getElementById('processing');
+      const successDiv = document.getElementById('success');
+      const failureDiv = document.getElementById('failure');
+      const orderIdElement = document.getElementById('orderId');
+      const failureReasonElement = document.getElementById('failureReason');
+
+      // Show processing UI
+      processingDiv.style.display = 'block';
+
+      // Simulate payment processing with a promise
+      const paymentPromise = new Promise((resolve, reject) => {
+        const randomDecision = Math.random() < 0.5; // Simulate 50% chance of success
+        const randomSeconds = Math.floor(Math.random() * (5 - 2 + 1)) + 2; // Random seconds between 2 to 5
+
+        setTimeout(() => {
+          if (randomDecision) {
+            resolve();
+          } else {
+            reject('Insufficient funds'); // Simulate failure with a reason
+          }
+        }, randomSeconds * 1000);
+      });
+
+      paymentPromise
+        .then(() => {
+          // Hide processing UI and show success UI
+          processingDiv.style.display = 'none';
+          successDiv.style.display = 'block';
+
+          // Display a randomly generated order ID
+          const orderId = generateRandomOrderId();
+          orderIdElement.textContent = `Order ID: ${orderId}`;
+        })
+        .catch((reason) => {
+          // Hide processing UI and show failure UI
+          processingDiv.style.display = 'none';
+          failureDiv.style.display = 'block';
+
+          // Display the reason for failure
+          failureReasonElement.textContent = `Reason: ${reason}`;
+        });
+    }
+
+    function generateRandomOrderId() {
+      return Math.floor(Math.random() * 10000) + 1;
+    }
+  </script>
+
+</body>
+</html>
