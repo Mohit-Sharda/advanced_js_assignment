@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+
+<script>
+   //<-------------  1. Let and Const Keywords: --------------->
+
+//let is used for variable declaration and can be reassigned.
+//const is used  for constant values and cannot be reassigned.
+
+let x = 10;
+x = 20; 
+
+const y = 30;
+// y = 40; // Error: Assignment to a constant variable
+
+
+//<-------------  2. Arrow Function: --------------->
+
+
+//Difference from Normal Function:
+//Arrow functions have a shorter syntax.
+//They do not bind their own this, arguments, super, or new.target.
+
+
+// Normal Function
+function add(a, b) {
+    return a + b;
+}
+
+// Arrow Function
+const add = (a, b) => a + b;
+
+
+
+//<-------------  3. Template Literals: --------------->
+
+// Use Case:
+// String interpolation and multiline strings.
+
+const name = "John";
+const greeting = `Hello, ${name}!
+How are you today?`;
+
+//<-------------  4. Default Parameters: --------------->
+
+// Use Case:
+// Assign default values to function parameters.
+
+function multiply(a, b = 2) {
+    return a * b;
+}
+
+multiply(5); // Returns 10
+
+//<-------------  5. For...of Loop: --------------->
+
+// Use Case:
+// Iterating over iterable objects like arrays.
+
+const numbers = [1, 2, 3];
+
+for (const num of numbers) {
+    console.log(num);
+}
+
+//<------------- 6. Object and Array Destructuring: --------------->
+
+// Use Cases:
+// Assigning values from objects or arrays to variables.
+
+// Object Destructuring
+const person = { name: 'Alice', age: 25 };
+const { name, age } = person;
+
+// Array Destructuring
+const numbers = [1, 2, 3];
+const [first, second] = numbers;
+
+//<-------------  7. Rest Parameter: --------------->
+
+// Use Case:
+// Gathering remaining arguments into an array.
+
+function sum(...numbers) {
+    return numbers.reduce((acc, num) => acc + num, 0);
+}
+
+sum(1, 2, 3); // Returns 6
+
+//<-------------  8. Spread Operator: --------------->
+
+// Use Case:
+// Expanding elements of an array or properties of an object.
+
+// Array Spread
+const arr1 = [1, 2, 3];
+const arr2 = [...arr1, 4, 5];
+
+// Object Spread
+const obj1 = { a: 1, b: 2 };
+const obj2 = { ...obj1, c: 3 };
+
+//<-------------  9. Classes: --------------->
+
+// Use Case:
+// Creating constructor functions and prototype-based inheritance in a more concise and readable syntax.
+
+class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+
+    speak() {
+        console.log(`${this.name} makes a sound.`);
+    }
+}
+
+const dog = new Animal('Dog');
+dog.speak(); // Outputs "Dog makes a sound."
+
+
+</script>

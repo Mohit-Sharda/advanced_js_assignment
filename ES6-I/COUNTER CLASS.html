@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter App</title>
+</head>
+<body>
+
+    <h1>Counter</h1>
+
+    <p>Automatic Counter: <span id="automaticCounter">0</span></p>
+    <button id="toggleAutomatic">Start/Stop Automatic Counter</button>
+
+    <p>Manual Counter: <span id="manualCounter">0</span></p>
+    <button id="incrementManual">Increment</button>
+    <button id="decrementManual">Decrement</button>
+
+    <script>
+        class Counter {
+            constructor() {
+                this.automaticCounter = 0;
+                this.manualCounter = 0;
+                this.intervalId = null;
+            }
+
+            startAutomaticCounter() {
+                this.intervalId = setInterval(() => {
+                    this.automaticCounter++;
+                    this.updateCounterDisplay('automaticCounter', this.automaticCounter);
+                }, 1000);
+            }
+
+            stopAutomaticCounter() {
+                clearInterval(this.intervalId);
+            }
+
+            incrementManualCounter() {
+                this.stopAutomaticCounter();
+                this.manualCounter++;
+                this.updateCounterDisplay('manualCounter', this.manualCounter);
+            }
+
+            decrementManualCounter() {
+                this.stopAutomaticCounter();
+                this.manualCounter--;
+                this.updateCounterDisplay('manualCounter', this.manualCounter);
+            }
+
+            updateCounterDisplay(elementId, value) {
+                document.getElementById(elementId).innerText = value;
+            }
+        }
+
+        const counter = new Counter();
+
+        document.getElementById('toggleAutomatic').addEventListener('click', () => {
+            if (counter.intervalId === null) {
+                counter.startAutomaticCounter();
+            } else {
+                counter.stopAutomaticCounter();
+            }
+        });
+
+        document.getElementById('incrementManual').addEventListener('click', () => {
+            counter.incrementManualCounter();
+        });
+
+        document.getElementById('decrementManual').addEventListener('click', () => {
+            counter.decrementManualCounter();
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    
+const toLowerCase = char => char.toLowerCase();
+
+
+const wordToLower = word => word.split('').map(toLowerCase).join('');
+
+
+const arrayToLower = arr => arr.map(wordToLower);
+
+
+const inputArray = ["MA", "SA", "I", "SCH", "OOL"];
+
+
+const outputArray = arrayToLower(inputArray);
+
+console.log(outputArray); 
+
+</script>
