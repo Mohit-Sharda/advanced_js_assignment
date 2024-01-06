@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Site</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #searchInput {
+            padding: 10px;
+            margin: 10px 0;
+            width: 300px;
+            font-size: 16px;
+        }
+
+        #moviesList {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .movie {
+            background-color: #fff;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 200px;
+        }
+
+        .movie img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Movie Site</h1>
+    <input type="text" id="searchInput" placeholder="Search for a movie">
+    <div id="moviesList"></div>
+
+    <script>
+        
+        function debounce(func, delay) {
+            let timeoutId;
+            return function() {
+                const context = this;
+                const args = arguments;
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    func.apply(context, args);
+                }, delay);
+            };
+        }
+
+        
+        function fetchMovies(query) {
+            
+            const apiKey = 'b966fd2c';
+            const apiUrl = `http://www.omdbapi.com/?apikey=${apiKey}&s=${query}`;
+
+            
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    
+                    const moviesList = document.getElementById('moviesList');
+                    moviesList.innerHTML = ''; 
+
+                    if (data.Search) {
+                        data.Search.forEach(movie => {
+                            const movieElement = document.createElement('div');
+                            movieElement.classList.add('movie');
+                            movieElement.innerHTML = `
+                                <img src="${movie.Poster}" alt="${movie.Title} Poster">
+                                <p>${movie.Title}</p>
+                            `;
+                            moviesList.appendChild(movieElement);
+                        });
+                    } else {
+                        moviesList.textContent = 'No movies found.';
+                    }
+                })
+                .catch(error => console.error('Error fetching movies:', error));
+        }
+
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', debounce(function() {
+            const query = searchInput.value.trim();
+            if (query.length > 0) {
+                fetchMovies(query);
+            }
+        }, 300));
+    </script>
+</body>
+</html>
